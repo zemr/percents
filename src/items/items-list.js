@@ -12,19 +12,18 @@ const setStyle = (name) => {
  return style;
 };
 
-const ItemsList = ({items}) => (
+const ItemsList = ({items, start, end}) => (
   <div>
     {
-      items.map(item => (
-        item.id < 6 ?
+      items
+        .slice(start, end)
+        .map(item => (
           <div className="avatar" key={item.id}>
             <div style={setStyle(item.name)}></div>
             <img src={item.avatar} alt={item.name} />
           </div>
-          : null
-      ))
+        ))
     }
-
   </div>
 );
 
