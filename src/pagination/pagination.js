@@ -8,6 +8,18 @@ class Pagination extends React.Component {
     this.props.setPagination(this.props.perPage);
   }
 
+  componentDidUpdate() {
+    const pages = document.getElementsByClassName('page');
+    if (pages) {
+      for (let i = 0; i < pages.length; i++) {
+        pages[i].classList.remove('page-active');
+        if (this.props.perPage * i === this.props.page.start) {
+          pages[i].classList.add('page-active');
+        }
+      }
+    }
+  }
+
   render() {
     const {setPage, count, perPage} = this.props;
     const pages = [];
@@ -29,7 +41,9 @@ class Pagination extends React.Component {
 }
 
 export default connect(
-  state => ({}),
+  state => ({
+    page: state.pagination
+  }),
   dispatch => ({
     setPagination: (perPage) => dispatch(setPagination(perPage)),
     setPage: (start, end) => dispatch(setPage(start, end))
