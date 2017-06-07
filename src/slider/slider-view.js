@@ -15,16 +15,26 @@ class SliderView extends React.Component {
       biggerValuePosition: 0
     };
 
+    this.setPosition = this.setPosition.bind(this);
     this.onMouseDown = this.onMouseDown.bind(this);
   }
 
   componentDidMount() {
+    this.setPosition();
+    window.addEventListener('resize', this.setPosition);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.setPosition);
+  }
+
+  setPosition() {
     let rect = document.getElementById('bar').getBoundingClientRect();
     this.setState({left: rect.left});
   }
 
   onMouseDown(posX) {
-    if ((this.state.width-this.state.smallerValue) - posX <= posX - (this.state.width - this.state.biggerValue))  {
+    if ((this.state.width - this.state.smallerValue) - posX <= posX - (this.state.width - this.state.biggerValue))  {
       this.setState({smallerValue: this.state.width - posX, smallerValuePosition: posX});
     } else {
       this.setState({biggerValue: this.state.width - posX, biggerValuePosition: posX});
