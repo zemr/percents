@@ -10,9 +10,7 @@ class SliderView extends React.Component {
       width: this.props.width,
       left: 0,
       smallerValue: 0,
-      biggerValue: this.props.width,
-      smallerValuePosition: this.props.width,
-      biggerValuePosition: 0
+      biggerValue: this.props.width
     };
 
     this.setPosition = this.setPosition.bind(this);
@@ -34,10 +32,21 @@ class SliderView extends React.Component {
   }
 
   onMouseDown(posX) {
-    if ((this.state.width - this.state.smallerValue) - posX <= posX - (this.state.width - this.state.biggerValue))  {
-      this.setState({smallerValue: this.state.width - posX, smallerValuePosition: posX});
+    if ((this.state.width - this.state.smallerValue) - posX <= posX - (this.state.width - this.state.biggerValue)) {
+      /* not-equal-to condition limits updates */
+      if (
+        Math.round(this.state.smallerValue / this.state.width * 10)
+        !== Math.round((this.state.width - posX) / this.state.width * 10)
+      ) {
+        this.setState({smallerValue: this.state.width - posX});
+      }
     } else {
-      this.setState({biggerValue: this.state.width - posX, biggerValuePosition: posX});
+      if (
+        Math.round(this.state.biggerValue / this.state.width * 10)
+        !== Math.round((this.state.width - posX) / this.state.width * 10)
+      ) {
+        this.setState({biggerValue: this.state.width - posX});
+      }
     }
   }
 
@@ -51,8 +60,6 @@ class SliderView extends React.Component {
           maxValue={this.props.maxValue}
           smallerValue={this.state.smallerValue}
           biggerValue={this.state.biggerValue}
-          smallerValuePosition={this.state.smallerValuePosition}
-          biggerValuePosition={this.state.biggerValuePosition}
           onMouseDown={this.onMouseDown}
         />
       </div>
