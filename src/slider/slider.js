@@ -12,19 +12,22 @@ class Slider extends React.Component {
     this.props.onMouseDown(posX);
   }
 
+  calculateValues(base) {
+    const value = Math.round(base / this.props.width * 10) * 10;
+    return value + '%';
+  }
+
   render() {
     const { width, minValue, maxValue, biggerValue, smallerValue } = this.props;
 
     return (
       <div className="slider" style={{width: width}}>
         <div className="slider-labels">
-            <span className="slider-label start"
-                  style={{left: Math.round((width - biggerValue) / width * 10) * 10 + '%'}}>
-              {Math.round(biggerValue / width * 10) * 10 + '%'}
-            </span>
-          <span className="slider-label end"
-                style={{right: Math.round(smallerValue / width * 10) * 10 + '%'}}>
-            {Math.round(smallerValue / width * 10) * 10 + '%'}
+          <span className="slider-label start" style={{left: this.calculateValues(width - biggerValue)}}>
+            {this.calculateValues(biggerValue)}
+          </span>
+          <span className="slider-label end" style={{right: this.calculateValues(smallerValue)}}>
+            {this.calculateValues(smallerValue)}
           </span>
         </div>
 
@@ -32,8 +35,8 @@ class Slider extends React.Component {
           <div className="slider-bar bottom" onMouseDown={this.handleMouseDown}>
             <div className="slider-bar active"
                  style={{
-                   left: Math.round(smallerValue / width * 10) * 10 + '%',
-                   right: Math.round((width - biggerValue) / width * 10) * 10 + '%'
+                   left: this.calculateValues(smallerValue),
+                   right: this.calculateValues(width - biggerValue)
                  }}>
             </div>
           </div>

@@ -9,6 +9,10 @@ class Pagination extends React.Component {
   }
 
   componentDidUpdate() {
+    this.setActivePage();
+  }
+
+  setActivePage() {
     const pages = document.getElementsByClassName('page');
     if (pages) {
       for (let i = 0; i < pages.length; i++) {
