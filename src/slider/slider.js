@@ -18,7 +18,7 @@ class Slider extends React.Component {
   }
 
   render() {
-    const { width, minValue, maxValue, biggerValue, smallerValue } = this.props;
+    const { width, minValue, maxValue, biggerValue, smallerValue, number } = this.props;
 
     return (
       <div className="slider" style={{width: width}}>
@@ -31,7 +31,7 @@ class Slider extends React.Component {
           </span>
         </div>
 
-        <div className="slider-bars" id="bar">
+        <div className="slider-bars" id={"bar" + number}>
           <div className="slider-bar bottom" onMouseDown={this.handleMouseDown}>
             <div className="slider-bar active"
                  style={{

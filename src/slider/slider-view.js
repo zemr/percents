@@ -27,7 +27,7 @@ class SliderView extends React.Component {
   }
 
   setPosition() {
-    let rect = document.getElementById('bar').getBoundingClientRect();
+    let rect = document.getElementById('bar' + this.props.number).getBoundingClientRect();
     this.setState({left: rect.left});
   }
 
@@ -61,6 +61,7 @@ class SliderView extends React.Component {
           smallerValue={this.state.smallerValue}
           biggerValue={this.state.biggerValue}
           onMouseDown={this.onMouseDown}
+          number={this.props.number}
         />
       </div>
     );
