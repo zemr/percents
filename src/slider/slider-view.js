@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Slider from './slider';
+import { setSliderValues } from './slider-reducer';
 import './slider.css';
 
 class SliderView extends React.Component {
@@ -20,6 +22,14 @@ class SliderView extends React.Component {
   componentDidMount() {
     this.setPosition();
     window.addEventListener('resize', this.setPosition);
+  }
+
+  componentDidUpdate() {
+    this.props.setSliderValues(
+      this.props.number,
+      this.calculateRangeValues(this.state.biggerValue),
+      this.calculateRangeValues(this.state.smallerValue)
+    );
   }
 
   componentWillUnmount() {
@@ -50,6 +60,14 @@ class SliderView extends React.Component {
     }
   }
 
+  calculateRangeValues(base) {
+    return (
+      (this.props.maxValue - this.props.minValue)
+      * (Math.round((base / this.state.width) * 10) / 10)
+      + this.props.minValue
+    );
+  }
+
   render() {
     return (
       <div>
@@ -68,4 +86,9 @@ class SliderView extends React.Component {
   }
 }
 
-export default SliderView
+export default connect(
+  state => ({}),
+  dispatch => ({
+    setSliderValues: (slider, max, min) =>  dispatch(setSliderValues(slider, max, min))
+  })
+)(SliderView)

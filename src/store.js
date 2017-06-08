@@ -1,8 +1,10 @@
 import { createStore, combineReducers } from 'redux';
 import paginationReducer from './pagination/pagination-reducer';
+import sliderReducer from './slider/slider-reducer';
 
 const reducer = combineReducers({
-  pagination: paginationReducer
+  pagination: paginationReducer,
+  slider: sliderReducer
 });
 
 const store = createStore(
