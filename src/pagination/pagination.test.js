@@ -1,10 +1,23 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import store from '../store';
+import { createStore } from 'redux';
 import TestUtils from 'react-dom/test-utils';
+import sinon from 'sinon';
 import Pagination from './pagination';
 
 describe('pagination', () => {
+
+  const store = createStore(() => {});
+  sinon.stub(store, 'getState').returns({
+    pagination: {
+      start: 0,
+      end: 5
+    }
+  });
+
+  afterAll(() => {
+    store.getState.restore();
+  });
 
   it('renders pagination', () => {
     const pagination = TestUtils.renderIntoDocument(
@@ -28,7 +41,7 @@ describe('pagination', () => {
     expect(pages.length).toEqual(4);
   });
 
-  it('when number of items <= items per page value, doesn\'t render page link', () => {
+  it('doesn\'t render page link when there is only one page', () => {
     const paginationSM = TestUtils.renderIntoDocument(
       <Provider store={store}>
         <Pagination count={3} perPage={5} />

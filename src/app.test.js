@@ -1,16 +1,34 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './store';
+import { createStore } from 'redux';
+import TestUtils from 'react-dom/test-utils';
+import sinon from 'sinon';
 import App from './app';
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(
-    (
+describe('app', () => {
+
+  it('renders without crashing', () => {
+    const store = createStore(() => {});
+    sinon.stub(store, 'getState').returns({
+      pagination: {
+        start: 0,
+        end: 5
+      }
+    });
+    sinon.stub(document, 'getElementById').returns({
+      getBoundingClientRect: () => {
+        return {left: 10}
+      }
+    });
+
+    TestUtils.renderIntoDocument(
       <Provider store={store}>
         <App />
       </Provider>
-    ),
-    div);
+    );
+
+    store.getState.restore();
+    document.getElementById.restore();
+  });
+
 });

@@ -11,7 +11,8 @@
   "devDependencies": {
     "react-addons-test-utils": "^15.5.1",
     "react-dom": "^15.5.4",
-    "react-scripts": "1.0.7"
+    "react-scripts": "1.0.7",
+    "sinon": "^2.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
