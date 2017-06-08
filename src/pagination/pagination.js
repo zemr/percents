@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { setPagination, setPage } from './pagination-reducer';
 import './pagination.css';
 
-class Pagination extends React.Component {
+export class Pagination extends React.Component {
   componentWillMount() {
     this.props.setPagination(this.props.perPage);
   }

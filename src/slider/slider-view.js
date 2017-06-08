@@ -4,7 +4,7 @@ import Slider from './slider';
 import { setSliderValues } from './slider-reducer';
 import './slider.css';
 
-class SliderView extends React.Component {
+export class SliderView extends React.Component {
   constructor(props) {
     super(props);
 

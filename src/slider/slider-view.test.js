@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import sinon from 'sinon';
-import SliderView from './slider-view';
+import { SliderView } from './slider-view';
 
 describe('slider-view', () => {
 
@@ -15,7 +15,7 @@ describe('slider-view', () => {
   let slider;
   beforeEach(() => {
      slider = TestUtils.renderIntoDocument(
-      <SliderView width={250} minValue={10} maxValue={200}/>
+      <SliderView width={250} minValue={10} maxValue={200} number={1} setSliderValues={() => {}} />
     );
   });
 
