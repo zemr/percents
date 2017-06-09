@@ -43,21 +43,21 @@ export class SliderView extends React.Component {
 
   onMouseDown(posX) {
     if ((this.state.width - this.state.smallerValue) - posX <= posX - (this.state.width - this.state.biggerValue)) {
-      /* not-equal-to condition limits updates */
-      if (
-        Math.round(this.state.smallerValue / this.state.width * 10)
-        !== Math.round((this.state.width - posX) / this.state.width * 10)
-      ) {
+      if (this.allowUpdate(this.state.smallerValue, posX)) {
         this.setState({smallerValue: this.state.width - posX});
       }
     } else {
-      if (
-        Math.round(this.state.biggerValue / this.state.width * 10)
-        !== Math.round((this.state.width - posX) / this.state.width * 10)
-      ) {
+      if (this.allowUpdate(this.state.biggerValue, posX)) {
         this.setState({biggerValue: this.state.width - posX});
       }
     }
+  }
+
+  allowUpdate(value, posX) {
+    return (
+      Math.round(value / this.state.width * 10)
+      !== Math.round((this.state.width - posX) / this.state.width * 10)
+    );
   }
 
   calculateRangeValues(base) {
