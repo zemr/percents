@@ -54,7 +54,9 @@ describe('slider-view (onMouseDown)', () => {
 
   const div = document.createElement('div');
   document.documentElement.appendChild(div);
-  const instance = ReactDOM.render(<SliderView width={100} minValue={0} maxValue={100} setSliderValues={() => {}} />, div);
+  const instance = ReactDOM.render(
+    <SliderView width={100} minValue={0} maxValue={100} setSliderValues={() => {}} />, div
+  );
 
   it('updates bigger value', () => {
     instance.onMouseDown(20);
