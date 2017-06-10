@@ -67,6 +67,15 @@ describe('pagination', () => {
     expect(handleClickStub.calledOnce).toBeTruthy();
     expect(handleClickStub.args[0]).toEqual([5, 10]);
     handleClickStub.reset();
-  })
+  });
+
+  it('sets starting page value', () => {
+    const mountingStub = sinon.spy();
+    TestUtils.renderIntoDocument(
+      <Pagination count={10} perPage={5} setPagination={mountingStub} />
+    );
+    expect(mountingStub.calledWith(5)).toBeTruthy();
+    mountingStub.reset();
+  });
 
 });
