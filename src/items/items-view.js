@@ -1,7 +1,7 @@
 import React from 'react';
 import data from '../data/items.json';
 import { connect } from 'react-redux';
-import ItemsList from './items-list';
+import Items from './items-filters';
 import Slider from '../slider/slider-view';
 
 const tasks = [], repairs = [], efficiency = [];
@@ -16,14 +16,14 @@ class ItemsView extends React.Component {
   }
 
   render() {
-    const {page, sliders} = this.props;
+    const { page } = this.props;
 
     return (
       <div>
         <Slider width={250} minValue={Math.min(...tasks)} maxValue={Math.max(...tasks)} number={1} />
         <Slider width={250} minValue={Math.min(...repairs)} maxValue={Math.max(...repairs)} number={2} />
         <Slider width={250} minValue={Math.min(...efficiency)} maxValue={Math.max(...efficiency)} number={3} />
-        <ItemsList items={data} start={page.start} end={page.end} filters={sliders} />
+        <Items data={data} start={page.start} end={page.end} />
       </div>
     );
   }
@@ -31,7 +31,6 @@ class ItemsView extends React.Component {
 
 export default connect(
   state => ({
-    page: state.pagination,
-    sliders: state.slider
+    page: state.pagination
   })
 )(ItemsView)

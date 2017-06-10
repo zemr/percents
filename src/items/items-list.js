@@ -1,5 +1,4 @@
 import React from 'react';
-import Pagination from '../pagination/pagination';
 import './items.css';
 
 export const setStyle = (name) => {
@@ -13,60 +12,18 @@ export const setStyle = (name) => {
  return style;
 };
 
-const ItemsList = ({items, start, end, filters}) => {
-  let itemsList;
-
-  const itemsFiltered =
-    items
-      .filter(item =>
-        item.tasks <= filters.max1
-        && item.tasks >= filters.min1
-      )
-      .filter(item =>
-        item.repairs <= filters.max2
-        && item.repairs >= filters.min2
-      )
-      .filter(item =>
-        item.efficiency <= filters.max3
-        && item.efficiency >= filters.min3
-      );
-
-  if (itemsFiltered.length <= start) {
-    itemsList = (
-      <div>
-        {
-          itemsFiltered.slice(0, end - start)
-            .map(item => (
-              <div className="avatar" key={item.id}>
-                <div style={setStyle(item.name)}/>
-                <img src={item.avatar} alt={item.name}/>
-              </div>
-            ))
-        }
-      </div>
-    );
-  } else {
-    itemsList = (
-      <div>
-        {
-          itemsFiltered.slice(start, end)
-            .map(item => (
-              <div className="avatar" key={item.id}>
-                <div style={setStyle(item.name)}/>
-                <img src={item.avatar} alt={item.name}/>
-              </div>
-            ))
-        }
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      {itemsList}
-      <Pagination count={itemsFiltered.length} perPage={5} />
-    </div>
-  );
-};
+const ItemsList = ({items}) => (
+  <div>
+    {
+      items
+        .map(item => (
+          <div className="avatar" key={item.id}>
+            <div style={setStyle(item.name)}/>
+            <img src={item.avatar} alt={item.name}/>
+          </div>
+        ))
+    }
+  </div>
+);
 
 export default ItemsList
