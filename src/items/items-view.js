@@ -17,15 +17,15 @@ class ItemsView extends React.Component {
   }
 
   render() {
-    const {page} = this.props;
+    const {page, sliders} = this.props;
 
     return (
       <div>
-        <Slider width={250} minValue={Math.min(...tasks)} maxValue={Math.max(...tasks)} number={1}/>
-        <Slider width={250} minValue={Math.min(...repairs)} maxValue={Math.max(...repairs)} number={2}/>
-        <Slider width={250} minValue={Math.min(...efficiency)} maxValue={Math.max(...efficiency)} number={3}/>
-        <ItemsList items={data} start={page.start} end={page.end}/>
-        <Pagination count={data.length} perPage={5}/>
+        <Slider width={250} minValue={Math.min(...tasks)} maxValue={Math.max(...tasks)} number={1} />
+        <Slider width={250} minValue={Math.min(...repairs)} maxValue={Math.max(...repairs)} number={2} />
+        <Slider width={250} minValue={Math.min(...efficiency)} maxValue={Math.max(...efficiency)} number={3} />
+        <ItemsList items={data} start={page.start} end={page.end} filters={sliders} />
+        <Pagination count={data.length} perPage={5} />
       </div>
     );
   }
@@ -33,6 +33,7 @@ class ItemsView extends React.Component {
 
 export default connect(
   state => ({
-    page: state.pagination
+    page: state.pagination,
+    sliders: state.slider
   })
 )(ItemsView)

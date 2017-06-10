@@ -12,10 +12,22 @@ export const setStyle = (name) => {
  return style;
 };
 
-const ItemsList = ({items, start, end}) => (
+const ItemsList = ({items, start, end, filters}) => (
   <div>
     {
       items
+        .filter(item =>
+          item.tasks <= filters.max1
+          && item.tasks >= filters.min1
+        )
+        .filter(item =>
+          item.repairs <= filters.max2
+          && item.repairs >= filters.min2
+        )
+        .filter(item =>
+          item.efficiency <= filters.max3
+          && item.efficiency >= filters.min3
+        )
         .slice(start, end)
         .map(item => (
           <div className="avatar" key={item.id}>
