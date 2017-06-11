@@ -35,12 +35,12 @@ describe('items-list', () => {
 
     const itemsList = TestUtils.renderIntoDocument(
       <Wrapper>
-        <ItemsList items={data} start={0} end={3} />
+        <ItemsList items={data} />
       </Wrapper>
     );
 
     const divs = TestUtils.scryRenderedDOMComponentsWithClass(itemsList, 'avatar');
-    expect(divs.length).toEqual(3);
+    expect(divs.length).toEqual(4);
   })
 
 });
