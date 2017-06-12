@@ -1,6 +1,8 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import ShallowRenderer from 'react-test-renderer/shallow';
+import sinon from 'sinon';
 import { ItemsFilters } from './items-filters';
 
 jest.mock('../pagination/pagination', () => {
@@ -69,6 +71,37 @@ describe('items-filters (filters prop)', () => {
 
     const withFilters = JSON.stringify(result).indexOf('"count":6') > 0;
     expect(withFilters).toBeTruthy();
+  });
+
+});
+
+describe('items-filters (componentDidUpdate)', () => {
+
+  it('sends indexes of the new last page', () => {
+    const setPageStub = sinon.spy();
+    const div = document.createElement('div');
+    document.documentElement.appendChild(div);
+    ReactDOM.render(
+      <ItemsFilters data={data} start={20} end={25} setPage={setPageStub}
+                    filters={{ max1: 500, min1: 200, max2: 33, min2: 8, max3: 100, min3: 0 }} />
+      , div
+     );
+
+    expect(setPageStub.calledOnce).toBeFalsy();
+
+    const avatars = document.documentElement.getElementsByClassName('avatar');
+    expect(avatars.length).toBe(2);
+
+    ReactDOM.render(
+      <ItemsFilters data={data} start={20} end={25} setPage={setPageStub}
+                    filters={{ max1: 500, min1: 200, max2: 33, min2: 8, max3: 100, min3: 0 }} />
+      , div
+    );
+
+    expect(setPageStub.calledOnce).toBeTruthy();
+    expect(setPageStub.args[0]).toEqual([10, 15]);
+
+    setPageStub.reset();
   });
 
 });
