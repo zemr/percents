@@ -42,10 +42,15 @@ describe('items-filters', () => {
     expect(sliced.length).toBe(3);
   });
 
-  it('returns starting set when there\'s not enough data to slice', () => {
-    const sliced = items.sliceData(data, 15, 20);
-    expect(sliced[0].name).toBe('It');
+  it('determines indexes of last data set', () => {
+    const lastSet = items.determineLastPage(18, 5);
+    expect(lastSet).toEqual({start: 15, end: 20});
   });
+
+  it('returns proper data set when last page was changed', () => {
+    const sliced = items.sliceData(data, 16, 24);
+    expect(sliced[0].name).toBe('Latlux');
+  })
 
 });
 
