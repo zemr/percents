@@ -1,9 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { setPage } from '../pagination/pagination-reducer';
 import ItemsList from './items-list';
 import Pagination from '../pagination/pagination';
 
+let updatePage = { on: 0, start: 0, end: 0 };
+
 export class ItemsFilters extends React.Component {
+  componentDidUpdate() {
+    if (updatePage.on === 1) {
+      this.props.setPage(updatePage.start, updatePage.end);
+      updatePage = { on: 0, start: 0, end: 0 };
+    }
+  }
+
+  determineLastPage(dataLength, perPage) {
+    const newIndex = perPage * (Math.ceil(dataLength / perPage) - 1);
+    return { start: newIndex, end: newIndex + perPage };
+  }
+
   filterData(data, filters) {
     return (
       data
@@ -23,8 +38,10 @@ export class ItemsFilters extends React.Component {
   }
 
   sliceData(dataFiltered, start, end) {
-    if (dataFiltered.length <= start) {
-      return dataFiltered.slice(0, end - start);
+    if (start !== 0 && dataFiltered.length <= start) {
+      const lastPage = this.determineLastPage(dataFiltered.length, end - start);
+      updatePage = { on: 1, start: lastPage.start, end: lastPage.end };
+      return dataFiltered.slice(lastPage.start, lastPage.end);
     } else {
       return dataFiltered.slice(start, end);
     }
@@ -67,5 +84,8 @@ export class ItemsFilters extends React.Component {
 export default connect(
   state => ({
     filters: state.slider
+  }),
+  dispatch => ({
+    setPage: (start, end) => dispatch(setPage(start, end))
   })
 )(ItemsFilters)
