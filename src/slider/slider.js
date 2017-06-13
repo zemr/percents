@@ -8,7 +8,9 @@ class Slider extends React.Component {
 
   handleMouseDown(event) {
     const clientX = event.touches ? event.touches[0].clientX : event.clientX;
-    const posX = clientX - this.props.left;
+    let posX = clientX - this.props.left;
+    if (posX < 0) posX = 0;
+    if (posX > this.props.width) posX = this.props.width;
     this.props.onMouseDown(posX);
   }
 
@@ -33,8 +35,8 @@ class Slider extends React.Component {
         </div>
 
         <div className="slider-bars">
-          <div className="slider-bar bottom transform" style={{width: width / 10 * 11}}>
-            <div className="slider-bar" id={"bar" + number} style={{width: width, left: width / 10 / 2 + 'px'}} onMouseDown={this.handleMouseDown}>
+          <div className="slider-bar bottom transform" style={{width: width / 10 * 11}} onMouseDown={this.handleMouseDown}>
+            <div className="slider-bar" id={"bar" + number} style={{width: width, left: width / 10 / 2 + 'px'}} >
               <div className="slider-bar active transform"
                  style={{
                    left: this.calculateValues(smallerValue),
