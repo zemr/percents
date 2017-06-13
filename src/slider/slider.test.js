@@ -23,8 +23,8 @@ describe('slider', () => {
         onMouseDown={handleMDStub}
       />
     );
-    const bar = TestUtils.findRenderedDOMComponentWithClass(slider, 'bottom');
-    TestUtils.Simulate.mouseDown(bar);
+    const bar = TestUtils.scryRenderedDOMComponentsWithClass(slider, 'slider-bar');
+    TestUtils.Simulate.mouseDown(bar[1]);
     expect(handleMDStub.calledOnce).toBeTruthy();
     handleMDStub.reset();
   });
@@ -39,8 +39,8 @@ describe('slider', () => {
         onMouseDown={handleMDStub}
       />
     );
-    const bar = TestUtils.findRenderedDOMComponentWithClass(slider, 'bottom');
-    TestUtils.Simulate.mouseDown(bar, position);
+    const bar = TestUtils.scryRenderedDOMComponentsWithClass(slider, 'slider-bar');
+    TestUtils.Simulate.mouseDown(bar[1], position);
     expect(handleMDStub.args[0]).toEqual([30]);
     handleMDStub.reset();
   });
