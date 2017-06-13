@@ -1,28 +1,30 @@
 .slider {
   margin: 0 auto 10px;
   box-sizing: content-box;
-  overflow: auto;
 }
 
 .slider-bars {
-  height: 20px;
+  height: 25px;
   position: relative;
+  right: 12px;
 }
 
 .slider-bar {
-  height: 10px;
+  height: 25px;
   position: absolute;
-  border-radius: 6px;
+}
+
+.slider-bar.transform {
   transform: rotateY(180deg);
 }
 
 .slider-bar.bottom {
-  width: 100%;
-  background-color: #b8b8b8;
+  background-image: url(../img/inactive-bar.svg);
 }
 
 .slider-bar.active {
-  background-color: #373737;
+  background-image: url(../img/active-bar.svg);
+  transform: translate(-12.5px);
 }
 
 .slider-labels {
@@ -39,10 +41,25 @@
   position: absolute;
 }
 
+.slider-label.start {
+  transform: translate(-40%);
+}
+
+.slider-label.end {
+  transform: translate(60%);
+}
+
 .slider-label.max {
   float: left;
+  margin-left: -10px;
 }
 
 .slider-label.min {
   float: right;
+  margin-right: -10px;
+}
+
+.slider-labels-bottom {
+  padding-top: 6px;
+  padding-bottom: 10px;
 }
