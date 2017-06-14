@@ -58,7 +58,7 @@ export class ItemsFilters extends React.Component {
       content = (
         <div>
           <ItemsList items={items} />
-          <Pagination count={dataFiltered.length} perPage={5} />
+          <Pagination count={dataFiltered.length} perPage={12} />
         </div>
       )
 
@@ -68,7 +68,7 @@ export class ItemsFilters extends React.Component {
       content = (
         <div>
           <ItemsList items={items} />
-          <Pagination count={data.length} perPage={5} />
+          <Pagination count={data.length} perPage={12} />
         </div>
       )
     }

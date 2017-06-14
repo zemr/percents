@@ -21,9 +21,15 @@ export class App extends React.Component {
 
     return (
       <div className="app">
+        <div className="slider-title">Tasks</div>
         <Slider width={250} minValue={Math.min(...tasks)} maxValue={Math.max(...tasks)} number={1} />
+
+        <div className="slider-title">Repairs</div>
         <Slider width={250} minValue={Math.min(...repairs)} maxValue={Math.max(...repairs)} number={2} />
+
+        <div className="slider-title">Efficiency</div>
         <Slider width={250} minValue={Math.min(...efficiency)} maxValue={Math.max(...efficiency)} number={3} />
+
         <Items data={data} start={page.start} end={page.end} />
       </div>
     );

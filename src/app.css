@@ -1,4 +1,6 @@
 .app {
-  padding: 30px;
+  max-width: 940px;
+  padding: 30px 10px;
+  margin: auto;
   text-align: center;
 }
