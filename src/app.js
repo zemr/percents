@@ -5,9 +5,9 @@ import Items from './items/items-filters';
 import Slider from './slider/slider-view';
 import './app.css';
 
-const tasks = [], repairs = [], efficiency = [];
+export const tasks = [], repairs = [], efficiency = [];
 
-class App extends React.Component {
+export class App extends React.Component {
   componentWillMount() {
     for (let i = 0; i < data.length; i++) {
       tasks.push(data[i].tasks);
