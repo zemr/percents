@@ -1,8 +1,13 @@
+.items-list {
+  padding-top: 20px;
+}
+
 .avatar {
   width: 150px;
   height: 150px;
-  margin: 2px;
+  margin: -2px 2px;
   display: inline-block;
+  position: relative;
   background-color: lightgray;
   text-align: left;
 }
@@ -17,4 +22,15 @@
 
 .avatar img:hover {
   filter: grayscale(0%);
+}
+
+.item-details {
+  width: 138px;
+  padding: 6px;
+  position: absolute;
+  bottom: 0;
+  display: none;
+  background-color: #a09489;
+  border-top: 4px solid #887e76;
+  font-size: 14px;
 }

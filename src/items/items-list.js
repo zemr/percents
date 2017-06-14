@@ -12,14 +12,24 @@ export const setStyle = (name) => {
  return style;
 };
 
+const toggleDetails = (name) => {
+  const details = document.querySelector('[alt="' + name + '"] + div');
+  details.style.display = (details.style.display === "block") ? "none" : "block";
+};
+
 const ItemsList = ({items}) => (
-  <div>
+  <div className="items-list">
     {
       items
         .map(item => (
           <div className="avatar" key={item.id}>
-            <div style={setStyle(item.name)}/>
-            <img src={item.avatar} alt={item.name}/>
+            <div style={setStyle(item.name)} />
+            <img src={item.avatar} alt={item.name} onClick={ () => toggleDetails(item.name) } />
+            <div className="item-details">
+              {"Tasks: " + item.tasks} <br />
+              {"Repairs: " + item.repairs} <br />
+              {"Efficiency: " + item.efficiency}
+            </div>
           </div>
         ))
     }
