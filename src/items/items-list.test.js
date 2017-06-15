@@ -1,13 +1,20 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import ItemsList, { setStyle } from './items-list';
 
-/* for stateless component */
 class Wrapper extends React.Component {
   render() {
     return this.props.children
   }
 }
+
+const data = [
+  {"id":16,"name":"Konklux","avatar":"https://"},
+  {"id":17,"name":"Tresom","avatar":"https://"},
+  {"id":18,"name":"Matsoft","avatar":"https://"},
+  {"id":19,"name":"Kanlam","avatar":"https://"}
+];
 
 describe('items-list', () => {
 
@@ -26,21 +33,34 @@ describe('items-list', () => {
   });
 
   it('renders correct number of items', () => {
-    const data = [
-      {"id":16,"name":"Konklux","avatar":"https://"},
-      {"id":17,"name":"Tresom","avatar":"https://"},
-      {"id":18,"name":"Matsoft","avatar":"https://"},
-      {"id":19,"name":"Kanlam","avatar":"https://"}
-    ];
-
     const itemsList = TestUtils.renderIntoDocument(
       <Wrapper>
         <ItemsList items={data} />
       </Wrapper>
     );
-
     const divs = TestUtils.scryRenderedDOMComponentsWithClass(itemsList, 'avatar');
     expect(divs.length).toEqual(4);
-  })
+  });
+
+  it('toggles between displaying and hiding the details', () => {
+    const div = document.createElement('div');
+    document.documentElement.appendChild(div);
+    ReactDOM.render(<ItemsList items={data} />, div);
+
+    const imgs = document.documentElement.getElementsByTagName('img');
+    const detailsBefore = document.documentElement.getElementsByClassName('item-details');
+    const detailsDisplay = detailsBefore[0].style.display;
+    expect(detailsDisplay).toBe('');
+
+    TestUtils.Simulate.click(imgs[0]);
+    const detailsOne = document.documentElement.getElementsByClassName('item-details');
+    const detailsDisplayOne = detailsOne[0].style.display;
+    expect(detailsDisplayOne).toBe('block');
+
+    TestUtils.Simulate.click(imgs[0]);
+    const detailsTwo = document.documentElement.getElementsByClassName('item-details');
+    const detailsDisplayTwo = detailsTwo[0].style.display;
+    expect(detailsDisplayTwo).toBe('none');
+  });
 
 });
