@@ -52,19 +52,11 @@ describe('slider', () => {
   });
 
   it('calculates relative position on touch devices', () => {
-    const position = { touches: [{clientX: 60}] };
-    const handleMDStub = sinon.spy();
-    const slider = TestUtils.renderIntoDocument(
-      <Slider
-        width={250}
-        left={20}
-        onMouseDown={handleMDStub}
-      />
-    );
-    const bar = TestUtils.findRenderedDOMComponentWithClass(slider, 'bottom');
-    TestUtils.Simulate.mouseDown(bar, position);
-    expect(handleMDStub.args[0]).toEqual([40]);
-    handleMDStub.reset();
+    const MDStub = sinon.spy();
+    const slider = TestUtils.renderIntoDocument(<Slider width={250} left={20} onMouseDown={MDStub} />);
+    slider.handleMouseDown({ touches: [{clientX: 60}] });
+    expect(MDStub.args[0]).toEqual([40]);
+    MDStub.reset();
   });
 
   it('returns relative position within a range', () => {
